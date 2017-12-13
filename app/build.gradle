@@ -1,11 +1,10 @@
 apply plugin: 'com.android.application'
 apply plugin: 'io.fabric'
-apply plugin: 'com.neenbedankt.android-apt'
 
 project.ext {
     version_name = '4.7.1'
     version_code = 92
-    support_version = '25.0.1'
+    support_version = '26.0.1'
     beta_number = 2
 }
 
@@ -16,28 +15,32 @@ repositories {
 }
 
 android {
-    compileSdkVersion 25
-    buildToolsVersion '25.0.1'
+    compileSdkVersion 26
 
     defaultConfig {
         applicationId "com.kennyc.open.imgur"
         minSdkVersion 17
-        targetSdkVersion 25
+        targetSdkVersion 26
         versionCode project.ext.version_code
         buildConfigField "String", "API_CLIENT_ID", project.API_CLIENT_ID
         buildConfigField "String", "API_CLIENT_SECRET", project.API_CLIENT_SECRET
     }
 
+    flavorDimensions "google play", "f-droid"
+
     productFlavors {
         full {
+            dimension "google play"
             versionName project.ext.version_name
         }
 
         beta {
+            dimension "google play"
             versionName project.ext.version_name + "-beta" + beta_number
         }
 
         f_droid {
+            dimension "f-droid"
             versionName project.ext.version_name + "-F_Droid"
         }
     }
@@ -97,7 +100,7 @@ dependencies {
     compile 'com.google.code.gson:gson:2.8.0'
 
     // Misc
-    apt 'com.jakewharton:butterknife-compiler:8.4.0'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:8.4.0'
     compile 'com.google.android.apps.muzei:muzei-api:2.0'
     fullCompile('com.crashlytics.sdk.android:crashlytics:+@aar') {
         transitive = true;
