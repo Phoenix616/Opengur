@@ -13,6 +13,7 @@ import android.text.util.Linkify;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.kenny.openimgur.R;
@@ -106,8 +107,9 @@ public class CommentAdapter extends BaseRecyclerAdapter<ImgurComment> {
         Linkify.addLinks(commentHolder.comment, Linkify.WEB_URLS);
         Linkify.addLinks(commentHolder.comment, LinkUtils.USER_CALLOUT_PATTERN, null);
         commentHolder.replies.setVisibility(comment.getReplyCount() > 0 ? View.VISIBLE : View.GONE);
+        commentHolder.repliesCount.setText(commentHolder.repliesCount.getContext().getString(R.string.comment_replies, comment.getReplyCount()));
         boolean isExpanded = mExpandedComments.contains(comment);
-        commentHolder.replies.setRotation(isExpanded ? EXPANDED : COLLAPSED);
+        commentHolder.repliesImage.setRotation(isExpanded ? EXPANDED : COLLAPSED);
         commentHolder.indicator.setVisibility(comment.getParentId() > 0 ? View.VISIBLE : View.GONE);
 
         Integer multiple = mIndicatorMultiples.get(comment.getParentId());
@@ -189,7 +191,7 @@ public class CommentAdapter extends BaseRecyclerAdapter<ImgurComment> {
 
         // Should always be the case
         if (view.getTag() instanceof CommentViewHolder) {
-            ((CommentViewHolder) view.getTag()).replies.animate().rotation(EXPANDED);
+            ((CommentViewHolder) view.getTag()).repliesImage.animate().rotation(EXPANDED);
         }
 
         mExpandedComments.add(comment);
@@ -211,7 +213,7 @@ public class CommentAdapter extends BaseRecyclerAdapter<ImgurComment> {
 
         // Should always be the case
         if (view.getTag() instanceof CommentViewHolder) {
-            ((CommentViewHolder) view.getTag()).replies.animate().rotation(COLLAPSED);
+            ((CommentViewHolder) view.getTag()).repliesImage.animate().rotation(COLLAPSED);
         }
 
         position++;
@@ -309,7 +311,13 @@ public class CommentAdapter extends BaseRecyclerAdapter<ImgurComment> {
         TextView comment;
 
         @BindView(R.id.replies)
-        ImageButton replies;
+        LinearLayout replies;
+
+        @BindView(R.id.replies_count)
+        TextView repliesCount;
+
+        @BindView(R.id.replies_image)
+        ImageButton repliesImage;
 
         @BindView(R.id.indicator)
         View indicator;

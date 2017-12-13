@@ -3,7 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:descendantFocusability="blocksDescendants">
+    android:descendantFocusability="blocksDescendants"
+    android:paddingBottom="0dp">
 
     <View
         android:id="@+id/indicator"
@@ -27,33 +28,53 @@
             android:gravity="center_vertical"
             android:textAppearance="@style/TextAppearance.Medium"
             android:textSize="12sp"
-            tools:text="DRButtersMD: 20 Points 9 Hours ago"
-            tools:drawableRight="@drawable/ic_upvote_green_12dp" />
+            tools:drawableRight="@drawable/ic_upvote_green_12dp"
+            tools:text="DRButtersMD: 20 Points 9 Hours ago" />
 
         <TextView
             android:id="@+id/comment"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="4dp"
             android:layout_marginTop="4dp"
             android:textAppearance="@style/TextAppearance.Regular"
             android:textSize="14sp"
             tools:text="This will be a comment " />
 
-        <ImageButton
+        <LinearLayout
             android:id="@+id/replies"
-            android:layout_width="32dp"
-            android:layout_height="32dp"
-            android:layout_gravity="right"
-            android:background="@drawable/pressed_drawable"
-            android:src="?repliesDrawable"
-            tools:src="@drawable/ic_add_white_18dp" />
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:paddingBottom="4dp"
+            android:paddingTop="4dp">
+
+            <TextView
+                android:id="@+id/replies_count"
+                android:layout_width="wrap_content"
+                android:layout_height="32dp"
+                android:layout_weight="9001"
+                android:gravity="center_vertical"
+                android:textAppearance="@style/TextAppearance.Regular"
+                android:textSize="14sp"
+                tools:text="18 replies" />
+
+            <ImageButton
+                android:id="@+id/replies_image"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_weight="1"
+                android:background="@drawable/pressed_drawable"
+                android:contentDescription="@string/load_comments"
+                android:src="?repliesDrawable"
+                tools:src="@drawable/ic_add_white_18dp" />
+        </LinearLayout>
 
     </LinearLayout>
 
     <View
         android:layout_width="match_parent"
         android:layout_height="1px"
-        android:background="?dividerColor"
         android:layout_gravity="bottom"
         tools:background="@color/primary_material_light" />
 
